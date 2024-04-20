@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { EditIcon } from "lucide-react";
+import { useState } from "react";
 
 type Props = {
   item: EditedItem
@@ -28,8 +29,11 @@ type EditedItem = {
 }
 
 export function EditItem({ item, setData }: Props) {
+
+  const [open, setOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size={"icon"}>
           <EditIcon />
@@ -97,7 +101,10 @@ export function EditItem({ item, setData }: Props) {
           <div className="mt-60">
             <SheetFooter>
               <SheetClose asChild>
-                <Button type="submit">Редактировать</Button>
+                <div className="flex gap-2">
+                  <Button variant={"search"} size={"prim"} onClick={() => setOpen(false)}>Отмена</Button>
+                  <Button variant={"newItem"} size={"prim"} type="submit">Редактировать</Button>
+                </div>
               </SheetClose>
             </SheetFooter>
           </div>

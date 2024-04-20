@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
+import { useState } from "react";
 
 
 type Props = {
@@ -28,9 +29,10 @@ type CreatedItem = {
 
 export function CreateItem({ fetchData }: Props) {
 
+  const [open, setOpen] = useState(false);
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="newItem">
           <Plus
@@ -64,7 +66,7 @@ export function CreateItem({ fetchData }: Props) {
             <svg width="400" height="84" viewBox="0 0 400 84" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="48" height="48" rx="8" transform="matrix(-1 -8.74228e-08 -8.74228e-08 1 72 24)" fill="#FAF4F4"/>
               <path d="M39 45.4161C39 45.0467 39.188 44.7001 39.5046 44.486L47.3046 39.2112C47.7209 38.9296 48.2791 38.9296 48.6954 39.2112L56.4954 44.486C56.812 44.7001 57 45.0467 57 45.4161V55.2882C57 56.2336 56.1941 57 55.2 57H40.8C39.8059 57 39 56.2336 39 55.2882V45.4161Z" stroke="#A85757" stroke-width="2"/>
-              <path d="M379.25 43.25L369.75 52.75M379.25 52.75L369.75 43.25" stroke="#352424" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M379.25 43.25L369.75 52.75M379.25 52.75L369.75 43.25" stroke="#352424" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </div>
           <SheetTitle>Новая позиция</SheetTitle>
@@ -96,13 +98,15 @@ export function CreateItem({ fetchData }: Props) {
                 Описание
               </Label>
               <Textarea  id="description" name="description" className="col-span-3 w-[352px] h-[140px]"/>
-              {/* <Input id="description" name="description" className="col-span-3" /> */}
             </div>
           </div>
           <div className="mt-60">
             <SheetFooter>
               <SheetClose asChild>
-                <Button type="submit">Подтвердить</Button>
+                <div className="flex gap-2">
+                  <Button variant={"search"} size={"prim"} onClick={() => setOpen(false)}>Отмена</Button>
+                  <Button variant={"newItem"} size={"prim"} type="submit">Подтвердить</Button>
+                </div>
               </SheetClose>
             </SheetFooter>
           </div>
